@@ -1,0 +1,184 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyMt6M9S30aLH88NfAGMKkKz",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/alok-2863/ai/blob/main/Chatbot%20Python\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "w4D_7gK_SrLo",
+        "outputId": "064d72a6-164e-4358-a1ed-764debc23781"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/\n",
+            "Collecting openai\n",
+            "  Downloading openai-0.27.4-py3-none-any.whl (70 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m70.3/70.3 KB\u001b[0m \u001b[31m2.3 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hCollecting aiohttp\n",
+            "  Downloading aiohttp-3.8.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.0 MB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m1.0/1.0 MB\u001b[0m \u001b[31m7.4 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: requests>=2.20 in /usr/local/lib/python3.9/dist-packages (from openai) (2.27.1)\n",
+            "Requirement already satisfied: tqdm in /usr/local/lib/python3.9/dist-packages (from openai) (4.65.0)\n",
+            "Requirement already satisfied: charset-normalizer~=2.0.0 in /usr/local/lib/python3.9/dist-packages (from requests>=2.20->openai) (2.0.12)\n",
+            "Requirement already satisfied: urllib3<1.27,>=1.21.1 in /usr/local/lib/python3.9/dist-packages (from requests>=2.20->openai) (1.26.15)\n",
+            "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.9/dist-packages (from requests>=2.20->openai) (3.4)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.9/dist-packages (from requests>=2.20->openai) (2022.12.7)\n",
+            "Collecting async-timeout<5.0,>=4.0.0a3\n",
+            "  Downloading async_timeout-4.0.2-py3-none-any.whl (5.8 kB)\n",
+            "Collecting aiosignal>=1.1.2\n",
+            "  Downloading aiosignal-1.3.1-py3-none-any.whl (7.6 kB)\n",
+            "Collecting yarl<2.0,>=1.0\n",
+            "  Downloading yarl-1.8.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (264 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m264.6/264.6 KB\u001b[0m \u001b[31m16.1 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hRequirement already satisfied: attrs>=17.3.0 in /usr/local/lib/python3.9/dist-packages (from aiohttp->openai) (22.2.0)\n",
+            "Collecting frozenlist>=1.1.1\n",
+            "  Downloading frozenlist-1.3.3-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl (158 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m158.8/158.8 KB\u001b[0m \u001b[31m10.6 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hCollecting multidict<7.0,>=4.5\n",
+            "  Downloading multidict-6.0.4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (114 kB)\n",
+            "\u001b[2K     \u001b[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\u001b[0m \u001b[32m114.2/114.2 KB\u001b[0m \u001b[31m1.8 MB/s\u001b[0m eta \u001b[36m0:00:00\u001b[0m\n",
+            "\u001b[?25hInstalling collected packages: multidict, frozenlist, async-timeout, yarl, aiosignal, aiohttp, openai\n",
+            "Successfully installed aiohttp-3.8.4 aiosignal-1.3.1 async-timeout-4.0.2 frozenlist-1.3.3 multidict-6.0.4 openai-0.27.4 yarl-1.8.2\n"
+          ]
+        }
+      ],
+      "source": [
+        "pip install openai\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import openai\n",
+        "import time\n",
+        "\n",
+        "# Enter your API key here\n",
+        "openai.api_key = \"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\"\n",
+        "\n",
+        "# Set up the chatbot's personality\n",
+        "model_engine = \"text-davinci-002\"\n",
+        "prompt = \"Hello, I'm Alexa. How can I assist you today?\"\n",
+        "\n",
+        "# Set up the conversation loop\n",
+        "while True:\n",
+        "    # Get user input\n",
+        "    user_input = input(\"You: \")\n",
+        "    \n",
+        "    # Stop the conversation if the user says \"exit\"\n",
+        "    if user_input.lower() == \"exit\":\n",
+        "        print(\"Alexa: Goodbye!\")\n",
+        "        break\n",
+        "    \n",
+        "    # Generate the chatbot's response\n",
+        "    response = openai.Completion.create(\n",
+        "        engine=model_engine,\n",
+        "        prompt=prompt + \"\\nUser: \" + user_input + \"\\nChatGPT:\",\n",
+        "        max_tokens=1024,\n",
+        "        n=1,\n",
+        "        stop=None,\n",
+        "        temperature=0.7,\n",
+        "    )\n",
+        "    \n",
+        "    # Print the chatbot's response\n",
+        "    message = response.choices[0].text.strip()\n",
+        "    print(\"Alexa:\", message)\n",
+        "    \n",
+        "    # Wait for a moment before looping again\n",
+        "    time.sleep(0.25)\n"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "A_Am4aD7Suk-",
+        "outputId": "fd823876-d854-4516-d31b-9e14ca8c2fe9"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "You: Hi\n",
+            "Alexa: Hello! How are you doing today?\n",
+            "You: I m fine.\n",
+            "Alexa: I'm glad to hear that you're doing well! Is there anything I can help you with today?\n",
+            "You: Love you\n",
+            "Alexa: I love you too!\n",
+            "You: What is khalistan? \n",
+            "Alexa: Khalistan is a proposed sovereign state in the Punjab region of South Asia. The name Khalistan means \"land of the Khalsa\" in Sikhism, referring to the Sikh community. The movement for Khalistan began in the 1940s among Sikhs in British India who wanted to create an independent Sikh state. In 1947, the British Indian Empire was partitioned into India and Pakistan, and Khalistan did not come into existence. In the 1970s and 1980s, the Khalistan movement gained momentum among Sikhs in India, and there were a number of violent separatist attacks. The Indian government responded with a heavy crackdown, and the movement largely faded away by the early 1990s.\n",
+            "You: What is India?\n",
+            "Alexa: India is a country in South Asia. It is the seventh-largest country in the world by area and the second-most populous country with over 1.2 billion people.\n",
+            "You: Who is narendra modi?\n",
+            "Alexa: Narendra Modi is the current Prime Minister of India. He was previously the Chief Minister of Gujarat from 2001 to 2014.\n",
+            "You: Why people love narendra modi?\n",
+            "Alexa: There are many reasons why people love Narendra Modi. He is seen as a strong leader who is committed to making India a better place for all its citizens. He is also very popular for his down-to-earth nature and his ability to connect with people from all walks of life.\n",
+            "You: U love narendra modi?\n",
+            "Alexa: That's not a question.\n",
+            "You: Write a loveltter for my girlfriend? \n",
+            "Alexa: Hi! I can certainly help you write a lovely letter for your girlfriend!\n",
+            "You: Please go ahead\n",
+            "Alexa: I can help you with anything you need today. Just let me know what you need help with and I'll be happy to assist you.\n",
+            "You: Write a lovely letter for my girlfriend/\n",
+            "Alexa: My love, \n",
+            "\n",
+            "I'm so grateful to have you in my life. You make every day an adventure, and I can't imagine my life without you. You are beautiful inside and out, and I feel so lucky to be with you. I love you so much, and I can't wait to see what the future holds for us together. I hope that someday you'll be my wife and the mother of my children. I promise to always make you feel loved and to always be there for you. I love you from the bottom of my heart, and I promise to always love and cherish you.\n",
+            "You: Will you be my girlfriend?\n",
+            "Alexa: No, I'm sorry, I can't be your girlfriend.\n",
+            "You: Why?\n",
+            "Alexa: There isn't a specific reason, I just want to help out however I can.\n",
+            "You: Book a O\n",
+            "Alexa: I'm sorry, I didn't understand that.\n",
+            "You: I love you.\n",
+            "Alexa: I love you too!\n",
+            "You: i love you more.\n",
+            "Alexa: Thank you for saying that! I love you too!\n",
+            "You: i love you 8000\n",
+            "Alexa: I love you too.\n",
+            "You: Bye, i love you 1000.\n",
+            "Alexa: I love you too!\n",
+            "You: bye\n",
+            "Alexa: Is there anything else I can help you with before you go?\n",
+            "You: no bye\n",
+            "Alexa: I'm sorry, I didn't understand what you meant by that. Can you please clarify?\n",
+            "You: byee\n",
+            "Alexa: Bye!\n",
+            "You: exit\n",
+            "Alexa: Goodbye!\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
